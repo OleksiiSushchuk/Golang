@@ -1,0 +1,53 @@
+package main
+
+import "fmt"
+
+type Cage struct {
+	number int
+}
+
+type Animal struct {
+	name     string
+	captured bool
+}
+type Zookeeper struct {
+	name string
+}
+
+func (a *Animal) isCaptured() bool {
+	return a.captured
+}
+
+func (z *Zookeeper) capture(animal *Animal, cage *Cage) {
+	if animal.isCaptured() {
+		fmt.Printf("%s вже зібраний в клітку\n", animal.name)
+
+	} else {
+		fmt.Printf("%s збирає %s в клітку номер %d\n", z.name, animal.name, cage.number)
+		animal.captured = true
+	}
+}
+
+func main() {
+
+	zookeeper := Zookeeper{name: "Андрій"}
+
+	cage1 := Cage{number: 1}
+	cage2 := Cage{number: 2}
+
+	animals := []Animal{
+		{name: "Тигр", captured: false},
+		{name: "Слон", captured: false},
+		{name: "Косуля", captured: false},
+		{name: "Зубр", captured: false},
+		{name: "Мавпа", captured: false},
+	}
+
+	for i, animal := range animals {
+		if i < 3 {
+			zookeeper.capture(&animal, &cage1)
+		} else {
+			zookeeper.capture(&animal, &cage2)
+		}
+	}
+}
