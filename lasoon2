@@ -19,12 +19,11 @@ func (a *Animal) isCaptured() bool {
 }
 
 func (z *Zookeeper) capture(animal *Animal, cage *Cage) {
-	if animal.isCaptured() {
-		fmt.Printf("%s вже зібраний в клітку\n", animal.name)
-
-	} else {
+	if !animal.isCaptured() {
 		fmt.Printf("%s збирає %s в клітку номер %d\n", z.name, animal.name, cage.number)
 		animal.captured = true
+	} else {
+		fmt.Printf("%s вже зібраний в клітку\n", animal.name)
 	}
 }
 
