@@ -35,11 +35,11 @@ func main() {
 	cage2 := Cage{number: 2}
 
 	animals := []Animal{
-		{name: "Тигр", captured: false},
-		{name: "Слон", captured: false},
-		{name: "Косуля", captured: false},
-		{name: "Зубр", captured: false},
-		{name: "Мавпа", captured: false},
+		{name: "Тигр"},
+		{name: "Слон"},
+		{name: "Косуля"},
+		{name: "Зубр"},
+		{name: "Мавпа"},
 	}
 
 	for i, animal := range animals {
@@ -48,5 +48,7 @@ func main() {
 		} else {
 			zookeeper.capture(&animal, &cage2)
 		}
+animals[i] = animal
 	}
+fmt.Println(animals)
 }
