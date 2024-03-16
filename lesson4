@@ -1,0 +1,40 @@
+package main
+
+import "fmt"
+
+func findStrings(texts []string, searchTerm string) []string {
+	var found []string
+	for _, text := range texts {
+		if containsString(text, searchTerm) {
+			found = append(found, text)
+		}
+	}
+	return found
+}
+
+func containsString(text, searchTerm string) bool {
+	for i := 0; i <= len(text)-len(searchTerm); i++ {
+		if text[i:i+len(searchTerm)] == searchTerm {
+			return true
+		}
+	}
+	return false
+}
+
+func main() {
+	texts := []string{
+		"first line of text",
+		"second line of text",
+		"there are a few more lines",
+		"last line",
+	}
+
+	searchTerm := "line"
+
+	results := findStrings(texts, searchTerm)
+
+	fmt.Printf("Result for '%s':\n", searchTerm)
+	for _, result := range results {
+		fmt.Println(result)
+	}
+}
