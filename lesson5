@@ -1,0 +1,46 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+type TextEditor struct {
+	indexedText map[string][]string
+}
+
+func (te *TextEditor) IndexText(text []string) {
+	te.indexedText = make(map[string][]string)
+	for _, line := range text {
+		words := strings.Fields(line)
+		for _, word := range words {
+			te.indexedText[word] = append(te.indexedText[word], line)
+		}
+	}
+}
+
+func (te *TextEditor) SearchWord(word string) []string {
+	return te.indexedText[word]
+}
+
+func main() {
+
+	texts := []string{
+		"first line of text",
+		"second line of text",
+		"there are a few more lines",
+		"last line",
+	}
+
+	editor := TextEditor{}
+	editor.IndexText(texts)
+
+	searchTerm := "last"
+
+	results := editor.SearchWord(searchTerm)
+
+	fmt.Printf("Results for '%s':\n", searchTerm)
+	for _, result := range results {
+		fmt.Println(result)
+	}
+}
