@@ -1,0 +1,38 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type Item struct {
+	ID int
+}
+
+func UniqueItems(items []Item) []Item {
+
+	uniqueMap := make(map[int]struct{})
+	uniqueItems := []Item{}
+
+	for _, item := range items {
+		if _, ok := uniqueMap[item.ID]; !ok {
+			uniqueMap[item.ID] = struct{}{}
+			uniqueItems = append(uniqueItems, item)
+		}
+	}
+
+	sort.Slice(uniqueItems, func(i, j int) bool {
+		return uniqueItems[i].ID < uniqueItems[j].ID
+	})
+
+	return uniqueItems
+}
+
+func main() {
+
+	items := []Item{{3}, {2}, {1}, {2}}
+
+	uniqueItems := UniqueItems(items)
+
+	fmt.Println(uniqueItems)
+}
