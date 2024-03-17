@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func findStrings(texts []string, searchTerm string) []string {
 	var found []string
@@ -13,12 +16,7 @@ func findStrings(texts []string, searchTerm string) []string {
 }
 
 func containsString(text, searchTerm string) bool {
-	for i := 0; i <= len(text)-len(searchTerm); i++ {
-		if text[i:i+len(searchTerm)] == searchTerm {
-			return true
-		}
-	}
-	return false
+	return strings.Contains(text, searchTerm)
 }
 
 func main() {
@@ -29,7 +27,7 @@ func main() {
 		"last line",
 	}
 
-	searchTerm := "line"
+	searchTerm := "more"
 
 	results := findStrings(texts, searchTerm)
 
