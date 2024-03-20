@@ -6,30 +6,39 @@ import (
 )
 
 type TextEditor struct {
-	indexedText map[string][]string
+	indexedText map[string]map[string]struct{}
 }
 
 func (te *TextEditor) IndexText(text []string) {
-	te.indexedText = make(map[string][]string)
+	te.indexedText = make(map[string]map[string]struct{})
 	for _, line := range text {
 		words := strings.Fields(line)
 		for _, word := range words {
-			te.indexedText[word] = append(te.indexedText[word], line)
+			if _, ok := te.indexedText[word]; !ok {
+				te.indexedText[word] = make(map[string]struct{})
+			}
+
+			te.indexedText[word][line] = struct{}{}
 		}
 	}
 }
 
 func (te *TextEditor) SearchWord(word string) []string {
-	return te.indexedText[word]
+	var results []string
+
+	for line := range te.indexedText[word] {
+		results = append(results, line)
+	}
+	return results
 }
 
 func main() {
 
 	texts := []string{
-		"first line of text",
+		"first line of text line",
 		"second line of text",
 		"there are a few more lines",
-		"last line",
+		"last line last",
 	}
 
 	editor := TextEditor{}
